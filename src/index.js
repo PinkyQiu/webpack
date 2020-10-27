@@ -1,9 +1,13 @@
-const str = require('./a');
-console.log(str);
+// let xhr = new XMLHttpRequest();
+// xhr.open('get', '/api/user', true);
+// xhr.onload = function() {
+//     console.log(xhr.response)
+// }
+// xhr.send()
 
-
-
-let abc = ()=>{
-    return 123;
+if(DEV) {
+    console.log('dev')
+} else {
+    console.log('production')
 }
-abc()
+

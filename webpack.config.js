@@ -1,47 +1,36 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 module.exports = {
-    devServer: {
-        port: 3000,
-        progress: true,
-        contentBase: './dist',
-        compress: true
-    },
     entry: './src/index.js',
     output: {
-        filename: 'bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, './dist'),
+        publicPath: '/'
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html',
-            filename: 'index.html',
-            minify: {
-                removeAttributeQuotes: true,
-                collapseWhitespace: true
-            }
+            template: './index.html'
+        }),
+        new webpack.DefinePlugin({
+            DEV: JSON.stringify('production');
         })
     ],
     module: {
-        rules: [
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader', 'postcss-loader']  // minicss会生成main.css，html通过link标签引入
-            }
-        ],
-        rules: [
+        rules:[
             {
                 test: /\.js$/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: [
-                            '@babel/preset-env'
-                        ]
+                        presets: ['@babel/preset-env']
                     }
                 }
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader', 'postcss-loader']  // minicss会生成main.css，html通过link标签引入
             }
-
         ]
     }
 }
