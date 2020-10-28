@@ -16,8 +16,11 @@
 // import $ from 'jquery';
 // console.log($);
 
-import logo from './logo.jpg';
-const img = new Image();
-img.src = logo;
-document.body.appendChild(img);
-console.log(123)
+// import logo from './logo.jpg';
+// const img = new Image();
+// img.src = logo;
+// document.body.appendChild(img);
+// console.log(123)
+
+// console.log('aaaaaaaaa');
+export default '1111';
