@@ -1,16 +1,15 @@
-let { SyncLoopHook } = require('tapable');
+let { SyncWaterfallHook } = require('tapable');
 
 class Lesson {
     constructor() {
-        let index = 0;
         this.hooks = {
-            arch: new SyncLoopHook(['name'])
+            arch: new SyncWaterfallHook(['name'])
         }
     }
     tap() {
         this.hooks.arch.tap('node', function(name) {
             console.log('start node', name);
-            return ++this.index === 3? undefined : '继续学'
+            return "学的不错"
 
         })
         this.hooks.arch.tap('react', function(data) {

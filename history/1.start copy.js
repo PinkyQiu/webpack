@@ -1,20 +1,19 @@
-let { SyncLoopHook } = require('tapable');
+let { SyncBailHook } = require('tapable');
 
 class Lesson {
     constructor() {
-        let index = 0;
         this.hooks = {
-            arch: new SyncLoopHook(['name'])
+            arch: new SyncBailHook(['name'])
         }
     }
     tap() {
         this.hooks.arch.tap('node', function(name) {
             console.log('start node', name);
-            return ++this.index === 3? undefined : '继续学'
+            return "想停止学习"
 
         })
-        this.hooks.arch.tap('react', function(data) {
-            console.log('start react', data)
+        this.hooks.arch.tap('react', function(name) {
+            console.log('start react', name)
         })
     }
     start() {

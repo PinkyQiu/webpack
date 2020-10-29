@@ -1,4 +1,4 @@
-class SyncLoopHook {
+class SyncWaterfallHook {
     constructor (args) {
         this.task = []
     }
@@ -6,21 +6,19 @@ class SyncLoopHook {
         this.task.push(task)
     }
     call(...args) {
-        this.tasks.forEach(task => {
-            let ret;
-            do{
-                ret = this.tasks(...args)
-            }while(ret !== undefined)
-        })
+        let [first, ...others] = this.tasks;
+        let ret = first(...args)
+        others.reduce((a,b) => {
+            return b(a)
+        }, ret)
     }
 }
 
-let hook = new SyncLoopHook(['name']);
-let total = 0;
+let hook = new SyncWaterfallHook(['name']);
 
 hook.tap('react', function(name) {
     console.log('react', name)
-    return ++this.total === 3? undefined : '继续学'
+    return 'react ok'
 })
 
 hook.tap('node', function(data) {
